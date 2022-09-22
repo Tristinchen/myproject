@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="./index.js">
+    </script>
+    <style>
+.tabtop13 {
+	margin-top: 13px;
+}
+.tabtop13 td{
+	background-color:#ffffff;
+	height:25px;
+	line-height:150%;
+}
+.font-center{ text-align:center}
+.btbg{background:#e9faff !important;}
+.btbg1{background:#f2fbfe !important;}
+.btbg2{background:#f3f3f3 !important;}
+.biaoti{
+	font-family: 微软雅黑;
+	font-size: 26px;
+	font-weight: bold;
+	border-bottom:1px dashed #CCCCCC;
+	color: #255e95;
+}
+.titfont {
+
+	font-family: 微软雅黑;
+	font-size: 16px;
+	font-weight: bold;
+	color: #255e95;
+	background: url(../images/ico3.gif) no-repeat 15px center;
+	background-color:#e9faff;
+}
+.tabtxt2 {
+	font-family: 微软雅黑;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: right;
+	padding-right: 10px;
+	color:#327cd1;
+}
+.tabtxt3 {
+	font-family: 微软雅黑;
+	font-size: 14px;
+	padding-left: 15px;
+	color: #000;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	line-height: 20px;
+}
+        div.header{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            border: 2px solid #000000;
+            background-color: #44bdff;
+            font-size:30px;
+            padding: 14px 16px;
+            color: #ffffff;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td align="center" class="biaoti" height="60">库存统计报表</td>
+  </tr>
+  <tr>
+    <td align="right" height="25">2022-09-20</td>
+  </tr>
+</table>
+
+<table width="100%" border="0" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
+  <tr>
+    <td class="btbg font-center titfont" rowspan="2">商品图片</td>
+    <td width="10%" class="btbg font-center titfont" rowspan="2">商品标题</td>
+    <td width="10%" class="btbg font-center titfont" rowspan="2">商品货号</td>
+    <td width="10%" class="btbg font-center titfont" rowspan="2">商品售价</td>
+    <td width="10%" class="btbg font-center titfont" rowspan="2">商品采购价</td>
+    <td colspan="4" class="btbg font-center titfont">sku信息</td>
+  </tr>
+  <tr>
+    <td width="8%" class="btbg2 font-center">颜色</td>
+    <td width="8%" class="btbg2 font-center">尺码</td>
+    <td width="8%" class="btbg2 font-center">sku code</td>
+    <td width="8%" class="btbg2 font-center">库存</td>
+  </tr>
+
+<script>
+var products = JSON.parse('{{ data | safe}}');
+
+for (var i=0,l=products.length; i<l; i++){
+    sku_num=products[i]["sku_infos"].length+1;
+    console.log(products[i]);
+
+    document.write('<tr>');
+	document.write('<td width="10%" rowspan="'+ sku_num +'" class="btbg1 font-center"><img src=' + products[i].product_img +' alt="Big Boat" width="150" height="150"></td>' );
+	document.write('<td width="10%" rowspan="'+ sku_num +'" class="btbg1 font-center">' + products[i].product_title +'</td>' );
+	document.write('<td width="10%" rowspan="'+ sku_num +'" class="btbg1 font-center">' + products[i].product_code +'</td>' );
+	document.write('<td width="5%" rowspan="'+ sku_num +'" class="btbg1 font-center">' + products[i].price +'</td>' );
+	document.write('<td width="5%" rowspan="'+ sku_num +'" class="btbg1 font-center">' + products[i].sale_price +'</td>' );
+	document.write('</tr>');
+	for(var m=0, k=products[i].sku_infos.length; m<k; m++){
+	     document.write('<tr>');
+	     document.write('<td width="10%"  class="btbg1 font-center">' + products[i].sku_infos[m].v_color +'</td>');
+	     document.write('<td width="10%"  class="btbg1 font-center">' + products[i].sku_infos[m].moreinfo +'</td>');
+	     document.write('<td width="10%"  class="btbg1 font-center">' + products[i].sku_infos[m].sku_code +'</td>');
+	     document.write('<td width="10%"  class="btbg1 font-center">' + products[i].sku_infos[m].inventory1688 +'</td>');
+         document.write('</tr>');
+
+	}
+
+}
+
+</script>
+
+</table>
+
+
+</body>
+</html>
